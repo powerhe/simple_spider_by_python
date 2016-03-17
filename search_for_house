@@ -1,0 +1,72 @@
+# coding=utf-8
+# ---------------------------------import---------------------------------------
+import urllib2
+import re
+import string
+import socket
+from bs4 import BeautifulSoup
+
+
+# ------------------------------------------------------------------------------
+def search_info(name, link):
+    userMainUrl = link
+    socket.setdefaulttimeout(100)
+    req = urllib2.Request(userMainUrl)
+    resp = urllib2.urlopen(req)
+    respHtml = resp.read()
+    found_info = re.findall('<a\shref=".+?"\stitle="(?P<title>.+?)"\s.+?>.+?</a>', respHtml, re.MULTILINE)
+    for value in found_info:
+        search_name = name
+        sub_found = re.search(search_name, value)
+        if sub_found:
+            print value
+
+
+def search_string(name, link):
+    userMainUrl = link
+    headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.114 Safari/537.36'}
+    req = urllib2.Request(userMainUrl, headers=headers)
+    resp = urllib2.urlopen(req)
+    respHtml = resp.read()
+    string = name
+    found_info = re.search(string, respHtml)
+    if found_info:
+        print "Please open this link:", userMainUrl
+
+
+def search_link(name, start_link):
+    userMainUrl = start_link
+    headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.114 Safari/537.36'}
+    req = urllib2.Request(userMainUrl, headers=headers)
+    resp = urllib2.urlopen(req)
+    respHtml = resp.read()
+    found_link = re.findall('.+?href="(?P<href>.+?)".+?', respHtml, re.MULTILINE)
+    search_value = name
+    for value in found_link:
+        sub_found = re.search('group/topic', value)
+        if sub_found:
+            #print value
+            search_string(search_value, value)
+            #for sub_link in found_link:
+                #search_link(sub_link)
+
+
+###############################################################################
+if __name__ == "__main__":
+    name = "西二旗"
+    page_string = "0"
+    start_link_init = "http://www.douban.com/group/beijingzufang/discussion?start="
+    start_link = "http://www.douban.com/group/beijingzufang/discussion?start=" + page_string
+    count = 0
+    while count < 10:
+        search_link(name, start_link)
+        page_count = string.atoi(page_string)
+        page_count += 25
+        page_string = '%d' %page_count
+        start_link = start_link_init + page_string
+        print start_link
+        count += 1
+
+    # link = search_link(start_link)
+    # search_info(name, link)
+
