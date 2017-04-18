@@ -1,5 +1,5 @@
 # simple_spider_by_python
-Support python 2.7 - 3.X
+Support python 2.7.10
 Using HTMLPaser lib and urlib
 Current Depth only TWO
 The file of "result.txt" contains the key info (by line)
