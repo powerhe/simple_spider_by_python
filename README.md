@@ -1,9 +1,13 @@
-# simple_spider_by_python
+## simple_spider_by_python
+
+### Spider Script
 Support python 2.7.10
+
 Using HTMLPaser lib and urlib
+
 Current Depth only TWO
-The file of "result.txt" contains the key info (by line)
-The file of "sub_link.txt" contains the 2 depth links
+  The file of "result.txt" contains the key info (by line)
+  The file of "sub_link.txt" contains the 2 depth links
 
 ## Step by Step
 ![2.7.13](https://www.python.org/ftp/python/2.7.13/python-2.7.13.amd64.msi)
@@ -15,6 +19,9 @@ The file of "sub_link.txt" contains the 2 depth links
 
 ### Crawling Script
   crawling script using the beautifulSoup lib, you should install bs first
+  
   crawling only search from the website : http://news.ifeng.com/listpage/11502/0/1/rtlist.shtml
+  
   And the key words is "人民的名义" for test
+  
   Continue ...
